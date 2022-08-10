@@ -2,6 +2,8 @@
 
 ###### *Please download the release for this resource unless you intend on building it yourself, if you do intend on building it yourself, there's a step-by-step tutorial on how to do that below.*
 
+**NOTE**: If another resource fails to use `ReleaseSoundId(soundid)` after using `GetSoundId()`, it may break the sounds in this resource as the sound limit gets reached.
+
 Controls your sirens with the best syncing possible!
 
 pma-sirensync controls the siren states (light and sound) via statebags onto the entity that is controlled, which ensures for the best syncing possible with OneSync Infinity (it's the default option for FXServer).
