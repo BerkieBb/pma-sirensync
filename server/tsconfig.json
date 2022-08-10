@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"module": "commonjs",
+		"target": "es6",
+		"allowJs": false,
+		"lib": ["es2020", "DOM"],
+		"types": ["@citizenfx/server", "@types/node"],
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"sourceMap": true
+	},
+	"include": ["./**/*"],
+	"exclude": ["node_modules", "**/__tests__/*"],
+	"semi": [true, "always"]
+}

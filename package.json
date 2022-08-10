@@ -1,0 +1,20 @@
+{
+	"name": "pma-base-resource",
+	"version": "1.0.0",
+	"description": "Resources configuration",
+	"main": "index.js",
+	"license": "",
+	"private": false,
+	"scripts": {
+		"build": "node build.prod.js",
+		"watch": "node build.dev.js"
+	},
+	"devDependencies": {
+		"@citizenfx/client": "^2.0.5318-1",
+		"@citizenfx/server": "^2.0.5318-1",
+		"@nativewrappers/client": "^1.7.25",
+		"@types/node": "^17.0.16",
+		"esbuild": "^0.14.21",
+		"node-fetch": "^2.6.7"
+	}
+}
