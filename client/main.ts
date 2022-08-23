@@ -53,16 +53,9 @@ RegisterCommand("+sirenModeHold", () => {
 
   const ent: StateBagInterface = Entity(veh).state;
 
-  if (ent.sirenOn && ent.lightsOn) {
-    PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", true);
-    let newSirenMode: number = (ent.sirenMode || 0) + 1;
-    if (newSirenMode > 3) {
-      newSirenMode = 1
-    }
-    ent.set("sirenMode", newSirenMode, true);
-  } else {
-    ent.set("sirenMode", 1, true);
-  }
+  if (ent.sirenOn && ent.lightsOn) return;
+
+  ent.set("sirenMode", 1, true);
 }, false);
 
 RegisterCommand("-sirenModeHold", () => {
@@ -87,14 +80,38 @@ RegisterCommand("sirenSoundToggle", () => {
   const ent: StateBagInterface = Entity(veh).state;
 
   if (!ent.lightsOn) return;
-  PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", true);
-  const curMode: boolean = ent.sirenOn
 
-  ent.set("sirenMode", curMode ? 0 : 1, true);
-  ent.set("sirenOn", !curMode, true);
+  PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", true);
+
+  let newSirenMode: number = (ent.sirenMode || 0) + 1;
+
+  if (newSirenMode > 3) {
+    newSirenMode = 0;
+    ent.set("sirenOn", false, true);
+  } else {
+    ent.set("sirenOn", true, true);
+  }
+
+  ent.set("sirenMode", newSirenMode, true);
 }, false);
 
 RegisterKeyMapping("sirenSoundToggle", "Toggle your emergency vehicle's siren sounds whilst your siren light is on", "keyboard", "COMMA");
+
+RegisterCommand("sirenSoundOff", () => {
+  const ped: number = PlayerPedId();
+  const veh: number = GetVehiclePedIsIn(ped, false);
+
+  if (!isAllowedSirens(veh, ped)) return;
+
+  const ent: StateBagInterface = Entity(veh).state;
+
+  if (!ent.sirenOn) return;
+
+  ent.set("sirenOn", false, true);
+  ent.set("sirenMode", 0, true);
+}, false);
+
+RegisterKeyMapping("sirenSoundOff", "Turn off your sirens after being toggled", "keyboard", "PERIOD");
 
 RegisterCommand("+emergencyHornHold", () => {
   const ped: number = PlayerPedId();
