@@ -1,9 +1,9 @@
 import { stateBagWrapper } from "./util";
 import { HornOverride, PrimarySirenOverride, Debug } from "../shared/config";
 
-const curSirenSound: Map<number, number> = new Map();
-const curSiren2Sound: Map<number, number> = new Map();
-const curHornSound: Map<number, number> = new Map();
+const curSirenSound: Map<number, number> = new Map<number, number>();
+const curSiren2Sound: Map<number, number> = new Map<number, number>();
+const curHornSound: Map<number, number> = new Map<number, number>();
 
 const exp = global.exports;
 
@@ -86,12 +86,10 @@ RegisterCommand("sirenSoundToggle", () => {
   let newSirenMode: number = (ent.sirenMode || 0) + 1;
 
   if (newSirenMode > 3) {
-    newSirenMode = 0;
-    ent.set("sirenOn", false, true);
-  } else {
-    ent.set("sirenOn", true, true);
+    newSirenMode = 1;
   }
 
+  ent.set("sirenOn", true, true);
   ent.set("sirenMode", newSirenMode, true);
 }, false);
 
@@ -237,7 +235,7 @@ stateBagWrapper("sirenMode", (ent: number, soundMode: number) => {
     }
     default: {
       releaseSirenSound(ent, soundId);
-      if (Debug) console.log("hit default? releasing sound");
+      if (Debug) console.log("hit default, releasing sound");
     }
   }
 });
