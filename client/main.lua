@@ -12,29 +12,29 @@ local IsPedInAnyHeli <const> = IsPedInAnyHeli
 local IsPedInAnyPlane <const> = IsPedInAnyPlane
 local wasInVehicle = false
 local lastVeh = nil
-
-local debug = false -- enable for debug print
+local debug
 
 local function isAllowedSirens(veh, ped)
     return GetPedInVehicleSeat(veh, -1) == ped and GetVehicleClass(veh) == 18 and not IsPedInAnyHeli(ped) and not IsPedInAnyPlane(ped)
 end
 
 CreateThread(function()
+    debug = sirenSync.getDebug()
     while true do
         local curSirenSound = sirenSync.getCurSirenSound()
         local curSiren2Sound = sirenSync.getCurSiren2Sound()
         local curHornSound = sirenSync.getCurHornSound()
 
-        for k, v in pairs(curSirenSound) do
-            sirenSync.releaseSirenSound(k, v, true)
+        for veh, soundId in pairs(curSirenSound) do
+            sirenSync.releaseSirenSound(veh, soundId, true)
         end
 
-        for k, v in pairs(curSiren2Sound) do
-            sirenSync.releaseSiren2Sound(k, v, true)
+        for veh, soundId in pairs(curSiren2Sound) do
+            sirenSync.releaseSiren2Sound(veh, soundId, true)
         end
 
-        for k, v in pairs(curHornSound) do
-            sirenSync.releaseHornSound(k, v, true)
+        for veh, soundId in pairs(curHornSound) do
+            sirenSync.releaseHornSound(veh, soundId, true)
         end
 
         Wait(1000)

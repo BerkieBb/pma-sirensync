@@ -10,7 +10,7 @@ pma-sirensync controls the siren states (light and sound) via statebags onto the
 
 You can toggle the emergency lights by pressing `Q` on your keyboard.
 
-You have a few ways of controlling the siren, the first way is to hold `R` on your keyboard, that doesn't require the emergency lights to be on, the second way is to press `,` on your keyboard to toggle the sound and press it again to untoggle, this one requires the emergency lights to be on. The third way is to press the `UP ARROW` key on your keyboard, this will toggle the second sound on your vehicle, if it doesn't have a second sound, this will do the same as pressing `,` but without the emergency lights requirement.
+You have a few ways of controlling the siren, the first way is to hold `R` on your keyboard, that doesn't require the emergency lights to be on, the second way is to press `,` on your keyboard to toggle the sound and with each press it will cycle through all availabe sounds for the vehicle you're in, to disable the sound, press `.`, this one requires the emergency lights to be on. The third way is to press the `UP ARROW` key on your keyboard, this will toggle the second sound on your vehicle, if it doesn't have a second sound, this will do the same as pressing `,` but without the emergency lights requirement, these sounds can also be overwritten in the config.ts in the shared folder, that allows for custom sounds to be played if you have them.
 
 The horn for emergency vehicles is also replaced by this resource, the key has not been changed from the default `E` keybind.
 

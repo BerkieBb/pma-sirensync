@@ -1,8 +1,10 @@
-export const Delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+import { Debug } from '../shared/config';
+
+export const Delay = (ms: number): Promise<number> => new Promise(res => setTimeout(res, ms));
 
 type StateBagHandler = (veh: number, value: any) => void;
 
-export const stateBagWrapper = async (bagKey: string, handler: StateBagHandler) => {
+export const stateBagWrapper = async (bagKey: string, handler: StateBagHandler): Promise<number> => {
   return AddStateBagChangeHandler(bagKey, null as any, async (bagName: string, _key: string, value: any, _: number, replicated: boolean) => {
     const entNet = Number(bagName.replace('entity:', ''));
     const timeout = GetGameTimer() + 1500;
@@ -19,4 +21,9 @@ export const stateBagWrapper = async (bagKey: string, handler: StateBagHandler) 
     if (!amOwner && replicated || amOwner && !replicated) return;
     handler(NetToVeh(entNet), value);
   })
+}
+
+export const debugLog = (msg: string): void => {
+  if (!Debug) return;
+  console.log(msg);
 }
