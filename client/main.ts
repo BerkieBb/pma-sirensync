@@ -120,6 +120,8 @@ RegisterCommand("+emergencyHornHold", (): void => {
 
   const ent: StateBagInterface = Entity(veh).state;
 
+  if (ent.horn) return;
+
   ent.set("horn", true, true);
   restoreSiren = ent.sirenMode;
   ent.set("sirenMode", 0, true);
