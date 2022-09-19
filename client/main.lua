@@ -11,7 +11,6 @@ local GetVehicleClass <const> = GetVehicleClass
 local IsPedInAnyHeli <const> = IsPedInAnyHeli
 local IsPedInAnyPlane <const> = IsPedInAnyPlane
 local wasInVehicle = false
-local lastVeh = nil
 local debug
 
 local function isAllowedSirens(veh, ped)
@@ -42,10 +41,22 @@ CreateThread(function()
 end)
 
 CreateThread(function()
+    local curState
+    local curVeh = 0
+    local checkVehicle = 0
+    local lastVeh = 0
+    local ensuringState = false
     while true do
         local ped <const> = PlayerPedId()
-        local curVeh <const> = GetVehiclePedIsIn(ped, false)
-        local ent <const> = Entity(curVeh).state
+        checkVehicle = GetVehiclePedIsIn(ped, false)
+        if checkVehicle ~= curVeh then
+            curVeh = checkVehicle
+            curState = Entity(curVeh).state
+        end
+
+        -- Update the state whilst it's ensuring
+        curState = ensuringState and Entity(curVeh).state or curState
+
         local sleep = 0
 
         if curVeh == 0 then
@@ -53,9 +64,7 @@ CreateThread(function()
                 wasInVehicle = false
                 lastVeh = GetVehiclePedIsIn(ped, true)
                 if lastVeh ~= 0 then
-                    ent:set("sirenMode", 0, true)
-                    ent:set("sirenOn", false, true)
-                    ent:set("horn", false, true)
+                    TriggerServerEvent("pma-sirensync:resetVehicleSound", VehToNet(lastVeh))
                 end
             end
 
@@ -68,11 +77,14 @@ CreateThread(function()
             goto skipLoop
         end
 
-        if not ent.stateEnsured then
+        if not curState.stateEnsured then
             if debug then print(("State bag doesn't exist for vehicle %s, ensuring"):format(curVeh)) end
+            ensuringState = true
             TriggerServerEvent("pma-sirensync:ensureStateBag", VehToNet(curVeh))
             sleep = 500
             goto skipLoop
+        else
+            ensuringState = false
         end
 
         wasInVehicle = true
