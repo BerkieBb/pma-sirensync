@@ -41,25 +41,31 @@ CreateThread(function()
 end)
 
 CreateThread(function()
+    local ped = PlayerPedId()
     local curState
     local curVeh = 0
     local checkVehicle = 0
     local lastVeh = 0
     local ensuringState = false
+    local changedVehicle = false
+    local sleep = 0
     while true do
-        local ped <const> = PlayerPedId()
+        ped = PlayerPedId()
         checkVehicle = GetVehiclePedIsIn(ped, false)
         if checkVehicle ~= curVeh then
             curVeh = checkVehicle
             curState = Entity(curVeh).state
+            SetVehRadioStation(curVeh, "OFF")
+            SetVehicleRadioEnabled(curVeh, false)
+            changedVehicle = true
         end
 
         -- Update the state whilst it's ensuring
         curState = ensuringState and Entity(curVeh).state or curState
 
-        local sleep = 0
+        sleep = 0
 
-        if curVeh == 0 then
+        if changedVehicle and curVeh == 0 then
             if wasInVehicle then
                 wasInVehicle = false
                 lastVeh = GetVehiclePedIsIn(ped, true)
@@ -72,12 +78,12 @@ CreateThread(function()
             goto skipLoop
         end
 
-        if not isAllowedSirens(curVeh, ped) then
+        if changedVehicle and not isAllowedSirens(curVeh, ped) then
             sleep = 250
             goto skipLoop
         end
 
-        if not curState.stateEnsured then
+        if changedVehicle and not ensuringState and not curState.stateEnsured then
             if debug then print(("State bag doesn't exist for vehicle %s, ensuring"):format(curVeh)) end
             ensuringState = true
             TriggerServerEvent("pma-sirensync:ensureStateBag", VehToNet(curVeh))
@@ -88,9 +94,6 @@ CreateThread(function()
         end
 
         wasInVehicle = true
-
-        SetVehRadioStation(curVeh, "OFF")
-        SetVehicleRadioEnabled(curVeh, false)
 
         -- These are disabled to prevent game mechanices from interfering with the keymapping
         DisableControlAction(0, 80, true) -- R
@@ -103,6 +106,8 @@ CreateThread(function()
         DisableControlAction(0, 172, true) -- Up arrow
 
         :: skipLoop ::
+
+        changedVehicle = false
 
         Wait(sleep)
     end
