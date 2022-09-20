@@ -4,7 +4,7 @@ game 'gta5'
 name 'pma-sirensync'
 author 'AvarianKnight & BerkieB'
 description 'A resource to control and sync siren lights and sounds for FiveM'
-version '1.0.3'
+version '1.0.4'
 license 'MIT'
 repository 'https://github.com/BerkieBb/pma-sirensync'
 
