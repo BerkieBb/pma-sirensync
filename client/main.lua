@@ -54,9 +54,11 @@ CreateThread(function()
         checkVehicle = GetVehiclePedIsIn(ped, false)
         if checkVehicle ~= curVeh then
             curVeh = checkVehicle
-            curState = Entity(curVeh).state
-            SetVehRadioStation(curVeh, "OFF")
-            SetVehicleRadioEnabled(curVeh, false)
+            if curVeh ~= 0 then
+                curState = Entity(curVeh).state
+                SetVehRadioStation(curVeh, "OFF")
+                SetVehicleRadioEnabled(curVeh, false)
+            end
             changedVehicle = true
         end
 
@@ -70,7 +72,11 @@ CreateThread(function()
                 wasInVehicle = false
                 lastVeh = GetVehiclePedIsIn(ped, true)
                 if lastVeh ~= 0 then
-                    TriggerServerEvent("pma-sirensync:resetVehicleSound", VehToNet(lastVeh))
+                    curState:set("sirenMode", 0, true)
+                    curState:set("siren2Mode", 0, true)
+                    curState:set("sirenOn", false, true)
+                    curState:set("siren2On", false, true)
+                    curState:set("horn", false, true)
                 end
             end
 
