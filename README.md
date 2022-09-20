@@ -20,7 +20,7 @@ To change any of these keybinds, you'll have to edit them in the main.ts and bui
 
 Building this resource is pretty simple, here are the steps.
 
-1. Install [pnpm](https://pnpm.io/installation)
+1. Install [pnpm](https://pnpm.io/installation#using-npm)
 2. Download the source code using the green `Code` button.
 3. Unpack the folder.
 4. Open a terminal in the location of the folder, this can easily be done by pressing the right mouse button on the folder and pressing `Open with Visual Studio Code` if you have Visual Studio Code.
