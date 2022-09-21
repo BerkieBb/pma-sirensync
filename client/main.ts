@@ -1,5 +1,6 @@
-import { stateBagWrapper, debugLog } from "./util";
-import { HornOverride, PrimarySirenOverride, Debug } from "../shared/config";
+import { stateBagWrapper } from "./utils";
+import { debugLog } from "../shared/utils";
+import { HornOverride, PrimarySirenOverride, AddonAudioBanks, Debug } from "../shared/config";
 
 const curSirenSound: Map<number, number> = new Map<number, number>();
 const curSiren2Sound: Map<number, number> = new Map<number, number>();
@@ -7,6 +8,7 @@ const curHornSound: Map<number, number> = new Map<number, number>();
 
 const exp = global.exports;
 
+exp("getAddonAudioBanks", () => AddonAudioBanks);
 exp("getCurSirenSound", () => curSirenSound);
 exp("getCurSiren2Sound", () => curSiren2Sound);
 exp("getCurHornSound", () => curHornSound);

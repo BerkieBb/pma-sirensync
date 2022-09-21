@@ -22,8 +22,3 @@ export const stateBagWrapper = async (bagKey: string, handler: StateBagHandler):
     handler(NetToVeh(entNet), value);
   })
 }
-
-export const debugLog = (msg: string): void => {
-  if (!Debug) return;
-  console.log(msg);
-}

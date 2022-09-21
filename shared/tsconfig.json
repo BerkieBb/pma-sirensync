@@ -6,7 +6,7 @@
 		"target": "es6",
 		"allowJs": false,
 		"lib": ["es2015", "DOM"],
-		"types": ["@citizenfx/client"],
+		"types": ["@citizenfx/client", "@citizenfx/server"],
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"esModuleInterop": true,

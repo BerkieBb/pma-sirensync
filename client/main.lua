@@ -19,6 +19,10 @@ end
 
 CreateThread(function()
     debug = sirenSync.getDebug()
+    local audioBanks = sirenSync.getAddonAudioBanks()
+    for i = 1, #audioBanks do
+        RequestScriptAudioBank(audioBanks[i], false)
+    end
     while true do
         local curSirenSound = sirenSync.getCurSirenSound()
         local curSiren2Sound = sirenSync.getCurSiren2Sound()
