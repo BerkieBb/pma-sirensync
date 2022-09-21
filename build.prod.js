@@ -4,7 +4,7 @@ build({
 	entryPoints: ['./client/main.ts'],
 	outfile: './dist/client/main.js',
 	target: "es2020",
-	minify: true,
+	minify: false,
 	bundle: true
 }).catch(() => process.exit(1));
 
@@ -13,6 +13,6 @@ build({
 	outfile: './dist/server/main.js',
 	platform: "node",
 	target: "es2020",
-	minify: true,
+	minify: false,
 	bundle: true
 }).catch(() => process.exit(1));
