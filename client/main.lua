@@ -108,7 +108,7 @@ CreateThread(function()
         DisableControlAction(0, 83, true) -- =
         DisableControlAction(0, 84, true) -- -
         DisableControlAction(0, 85, true) -- Q
-        DisableControlAction(0, 86, true) -- E
+        if isAllowedSirens(curVeh, ped) then DisableControlAction(0, 86, true) end -- E
         DisableControlAction(0, 172, true) -- Up arrow
 
         :: skipLoop ::

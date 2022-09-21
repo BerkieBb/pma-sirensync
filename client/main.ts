@@ -112,7 +112,7 @@ RegisterCommand("sirenSoundOff", (): void => {
 
 RegisterKeyMapping("sirenSoundOff", "Turn off your sirens after being toggled", "keyboard", "PERIOD");
 
-RegisterCommand("+emergencyHornHold", (): void => {
+RegisterCommand("+hornHold", (): void => {
   const ped: number = PlayerPedId();
   const veh: number = GetVehiclePedIsIn(ped, false);
 
@@ -127,7 +127,7 @@ RegisterCommand("+emergencyHornHold", (): void => {
   ent.set("sirenMode", 0, true);
 }, false);
 
-RegisterCommand("-emergencyHornHold", (): void => {
+RegisterCommand("-hornHold", (): void => {
   const ped: number = PlayerPedId();
   const veh: number = GetVehiclePedIsIn(ped, false);
 
@@ -142,7 +142,7 @@ RegisterCommand("-emergencyHornHold", (): void => {
   restoreSiren = 0;
 }, false);
 
-RegisterKeyMapping("+emergencyHornHold", "Hold this button to sound your emergency vehicle's horn", "keyboard", "E");
+RegisterKeyMapping("+hornHold", "Hold this button to sound your vehicle's horn", "keyboard", "E");
 
 RegisterCommand("sirenSound2Cycle", (): void => {
   const ped: number = PlayerPedId();
