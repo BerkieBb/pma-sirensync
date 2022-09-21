@@ -1,5 +1,3 @@
-import { Debug } from "./config";
-
 export const joaat = (key: string): number => {
     const keyLowered = key.toLowerCase();
     const length = keyLowered.length;
@@ -23,3 +21,14 @@ export const debugLog = (msg: string): void => {
     if (!Debug) return;
     console.log(msg);
 }
+
+export const HornOverride: Map<number, string> = new Map<number, string>()
+	.set(joaat("firetruk"), "VEHICLES_HORNS_FIRETRUCK_WARNING")
+
+export const PrimarySirenOverride: Map<number, string | string[]> = new Map<number, string | string[]>()
+	.set(joaat("firetruk"), "")
+
+export const AddonAudioBanks: Map<string, string | string[]> = new Map<string, string | string[]>()
+	.set("dlcpack", "dlcsoundname")
+
+export const Debug: boolean = false;

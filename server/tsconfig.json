@@ -12,7 +12,7 @@
 		"esModuleInterop": true,
 		"sourceMap": true
 	},
-	"include": ["./**/*"],
+	"include": ["./**/*", "./../shared"],
 	"exclude": ["node_modules", "**/__tests__/*"],
 	"semi": [true, "always"]
 }

@@ -2,7 +2,7 @@
 
 ###### *If you download the source code via the green `Code` button, you'll need to build the resource, a tutorial on how to do that is down below, if you don't want to build it, you can download the release and drag and drop it in your server, but any changes made to the built resource will need to be re-built to add the changes in.*
 
-**NOTE**: If another resource fails to use `ReleaseSoundId(soundId)` after using `GetSoundId()`, it may break the sounds in this resource as the sound limit gets reached.
+**NOTE**: If another resource fails to use `ReleaseSoundId(soundId)` after using `GetSoundId()`, it may break the sounds in this resource as the sound limit gets reached. Oh and the config is the shared/shared.ts file
 
 Controls your sirens with the best syncing possible!
 
