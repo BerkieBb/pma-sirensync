@@ -6,8 +6,7 @@ export const HornOverride: Map<number, string> = new Map<number, string>()
 export const PrimarySirenOverride: Map<number, string | string[]> = new Map<number, string | string[]>()
 	.set(joaat("firetruk"), "")
 
-export const AddonAudioBanks: string[] = [
-	"",
-];
+export const AddonAudioBanks: Map<string, string | string[]> = new Map<string, string | string[]>()
+	.set("dlcpack", "dlcsoundname")
 
 export const Debug: boolean = false;

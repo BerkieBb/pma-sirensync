@@ -14,6 +14,23 @@ exp("getCurSiren2Sound", () => curSiren2Sound);
 exp("getCurHornSound", () => curHornSound);
 exp("getDebug", () => Debug);
 
+const getSoundBankForSound = (sound: string): string => {
+  for (const [key, value] of AddonAudioBanks) {
+    if (typeof value === "string") {
+      if (value === sound) {
+        return key;
+      }
+    } else {
+      for (let i = 1; i < value.length; i++) {
+        if (value[i] === sound) {
+          return key;
+        }
+      }
+    }
+  }
+  return "";
+}
+
 const isAllowedSirens = (veh: number, ped: number): boolean =>
   GetPedInVehicleSeat(veh, -1) === ped && GetVehicleClass(veh) === 18 && !IsPedInAnyHeli(ped) && !IsPedInAnyPlane(ped);
 
@@ -258,12 +275,14 @@ stateBagWrapper("siren2Mode", (ent: number, soundMode: number): void => {
   debugLog(`[siren2Mode] Setting sound id ${soundId} for ${ent}`);
   const sounds: string | string[] = PrimarySirenOverride.get(GetEntityModel(ent)) || "VEHICLES_HORNS_SIREN_1";
   if (typeof sounds === "string") {
-    PlaySoundFromEntity(soundId, sounds, ent, 0 as any, false, 0);
+    const soundBank = getSoundBankForSound(sounds);
+    PlaySoundFromEntity(soundId, sounds, ent, soundBank !== "" ? soundBank : 0 as any, false, 0);
     debugLog(`[siren2Mode] playing sound 1 for ${ent} with sound id ${soundId}`);
   } else {
     for (let i = 0; i < sounds.length; i++) {
       if ((soundMode - 1) === i) {
-        PlaySoundFromEntity(soundId, sounds[i], ent, 0 as any, false, 0);
+        const soundBank = getSoundBankForSound(sounds[i]);
+        PlaySoundFromEntity(soundId, sounds[i], ent, soundBank !== "" ? soundBank : 0 as any, false, 0);
         debugLog(`[siren2Mode] playing sound ${i + 1} for ${ent} with sound id ${soundId}`);
         return;
       }
