@@ -1,19 +1,20 @@
 {
-	"name": "pma-base-resource",
+	"name": "pma-sirensync",
 	"version": "1.0.0",
-	"description": "Resources configuration",
+	"description": "pma-sirensync",
 	"main": "index.js",
 	"license": "",
 	"private": false,
+	"type": "module",
 	"scripts": {
 		"build": "node build.prod.js",
 		"watch": "node build.dev.js"
 	},
 	"devDependencies": {
-		"@citizenfx/client": "^2.0.5893-1",
-		"@citizenfx/server": "^2.0.5893-1",
-		"@types/node": "^18.7.18",
-		"esbuild": "^0.15.8",
+		"@citizenfx/client": "^2.0.5949-1",
+		"@citizenfx/server": "^2.0.5949-1",
+		"@types/node": "^18.8.4",
+		"esbuild": "^0.15.10",
 		"node-fetch": "^3.2.10"
 	}
 }

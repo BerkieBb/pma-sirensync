@@ -1,5 +1,5 @@
-const { build } = require('esbuild');
-const fetch = require('node-fetch');
+import { build } from 'esbuild';
+import fetch from 'node-fetch';
 
 let lastRebuild = Date.now();
 
