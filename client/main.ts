@@ -265,7 +265,7 @@ stateBagWrapper("sirenMode", (ent: number, soundMode: number): void => {
 stateBagWrapper("siren2Mode", (ent: number, soundMode: number): void => {
   const relSoundId: number | undefined = curSiren2Sound.get(ent);
   if (relSoundId !== undefined) {
-    releaseSirenSound(ent, relSoundId);
+    releaseSiren2Sound(ent, relSoundId);
     debugLog(`[siren2Mode] ${ent} has sound, releasing sound id ${relSoundId}`);
   };
   if (soundMode === 0) return;
