@@ -20,6 +20,8 @@ To change any of these keybinds, you'll have to edit them in the main.ts and bui
 
 Building this resource is pretty simple, here are the steps.
 
+[Video Tutorial](https://youtu.be/1sqYjzEQCT0)
+
 1. Install [pnpm](https://pnpm.io/installation#using-npm)
 2. Download the source code using the green `Code` button.
 3. Unpack the folder.
