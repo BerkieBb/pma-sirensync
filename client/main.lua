@@ -10,7 +10,6 @@ local GetPedInVehicleSeat <const> = GetPedInVehicleSeat
 local GetVehicleClass <const> = GetVehicleClass
 local IsPedInAnyHeli <const> = IsPedInAnyHeli
 local IsPedInAnyPlane <const> = IsPedInAnyPlane
-local wasInVehicle = false
 local debug
 
 local function isAllowedSirens(veh, ped)
@@ -48,21 +47,27 @@ CreateThread(function()
     local ped = PlayerPedId()
     local curState
     local curVeh = 0
-    local checkVehicle = 0
     local lastVeh = 0
     local ensuringState = false
     local changedVehicle = false
+    local allowedSirens = false
     local sleep = 0
+
     while true do
         ped = PlayerPedId()
-        checkVehicle = GetVehiclePedIsIn(ped, false)
-        if checkVehicle ~= curVeh then
-            curVeh = checkVehicle
+        curVeh = GetVehiclePedIsIn(ped, false)
+        allowedSirens = isAllowedSirens(curVeh, ped)
+
+        if curVeh ~= lastVeh then
             if curVeh ~= 0 then
                 curState = Entity(curVeh).state
-                SetVehRadioStation(curVeh, "OFF")
-                SetVehicleRadioEnabled(curVeh, false)
+
+                if allowedSirens then
+                    SetVehRadioStation(curVeh, "OFF")
+                    SetVehicleRadioEnabled(curVeh, false)
+                end
             end
+
             changedVehicle = true
         end
 
@@ -72,51 +77,50 @@ CreateThread(function()
         sleep = 0
 
         if changedVehicle and curVeh == 0 then
-            if wasInVehicle then
-                wasInVehicle = false
-                lastVeh = GetVehiclePedIsIn(ped, true)
-                if lastVeh ~= 0 then
-                    curState:set("sirenMode", 0, true)
-                    curState:set("siren2Mode", 0, true)
-                    curState:set("sirenOn", false, true)
-                    curState:set("siren2On", false, true)
-                    curState:set("horn", false, true)
-                end
+            if lastVeh ~= 0 then
+                curState:set("sirenMode", 0, true)
+                curState:set("siren2Mode", 0, true)
+                curState:set("sirenOn", false, true)
+                curState:set("siren2On", false, true)
+                curState:set("horn", false, true)
             end
 
             sleep = 250
             goto skipLoop
         end
 
-        if changedVehicle and not isAllowedSirens(curVeh, ped) then
+        if curVeh == 0 or not allowedSirens then
             sleep = 250
             goto skipLoop
         end
 
         if changedVehicle and not ensuringState and not curState.stateEnsured then
-            if debug then print(("State bag doesn't exist for vehicle %s, ensuring"):format(curVeh)) end
+            if debug then
+                print(("State bag doesn't exist for vehicle %s, ensuring"):format(curVeh))
+            end
+
             ensuringState = true
             TriggerServerEvent("pma-sirensync:ensureStateBag", VehToNet(curVeh))
             sleep = 500
+
             goto skipLoop
         else
             ensuringState = false
         end
 
-        wasInVehicle = true
-
-        -- These are disabled to prevent game mechanices from interfering with the keymapping
+        -- These are disabled to prevent game mechanics from interfering with the keymapping
         DisableControlAction(0, 80, true) -- R
         DisableControlAction(0, 81, true) -- .
         DisableControlAction(0, 82, true) -- ,
         DisableControlAction(0, 83, true) -- =
         DisableControlAction(0, 84, true) -- -
         DisableControlAction(0, 85, true) -- Q
-        if isAllowedSirens(curVeh, ped) then DisableControlAction(0, 86, true) end -- E
+        DisableControlAction(0, 86, true) -- E
         DisableControlAction(0, 172, true) -- Up arrow
 
         :: skipLoop ::
 
+        lastVeh = curVeh
         changedVehicle = false
 
         Wait(sleep)
