@@ -105,7 +105,7 @@ CreateThread(function()
 
         wasInVehicle = true
 
-        -- These are disabled to prevent game mechanices from interfering with the keymapping
+        -- These are disabled to prevent game mechanics from interfering with the keymapping
         DisableControlAction(0, 80, true) -- R
         DisableControlAction(0, 81, true) -- .
         DisableControlAction(0, 82, true) -- ,
