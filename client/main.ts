@@ -15,13 +15,13 @@ exp("getDebug", () => Debug);
 
 const getSoundBankForSound = (sound: string): string => {
   for (const [key, value] of AddonAudioBanks) {
-    if (typeof value === "string") {
-      if (value === sound) {
+    if (typeof value.sounds === "string") {
+      if (value.sounds === sound) {
         return key;
       }
     } else {
-      for (let i = 1; i < value.length; i++) {
-        if (value[i] === sound) {
+      for (let i = 1; i < value.sounds.length; i++) {
+        if (value.sounds[i] === sound) {
           return key;
         }
       }

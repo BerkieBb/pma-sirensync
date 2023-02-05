@@ -26,9 +26,9 @@ export const HornOverride: Map<number, string> = new Map<number, string>()
 	.set(joaat("firetruk"), "VEHICLES_HORNS_FIRETRUCK_WARNING")
 
 export const PrimarySirenOverride: Map<number, string | string[]> = new Map<number, string | string[]>()
-	.set(joaat("firetruk"), "")
+	.set(joaat("police"), ["SIREN_ALPHA", "SIREN_BRAVO", "SIREN_CHARLIE"])
 
-export const AddonAudioBanks: Map<string, string | string[]> = new Map<string, string | string[]>()
-	.set("dlcpack", "dlcsoundname")
+export const AddonAudioBanks: Map<string, {bankName: string, sounds: string | string[]}> = new Map<string, {bankName: string, sounds: string | string[]}>()
+	.set("DLC_WMSIRENS_SOUNDSET", {bankName: "DLC_WMSIRENS\\SIRENPACK_ONE", sounds: ["SIREN_ALPHA", "SIREN_BRAVO", "SIREN_CHARLIE"]})
 
 export const Debug: boolean = false;
